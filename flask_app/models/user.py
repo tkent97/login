@@ -21,21 +21,21 @@ class User:
     @classmethod
     def save(cls, data):
         query = "INSERT INTO users (first_name, last_name, email, password) VALUES ( %(first_name)s, %(last_name)s, %(email)s, %(password)s)"
-        return connectToMySQL('log_and_reg').query_db(query,data)
+        return connectToMySQL('login').query_db(query,data)
         
 
     @classmethod
     def is_email_not_in_database(cls, data):
         query = "SELECT * FROM users WHERE email =%(email)s;"
 
-        results = connectToMySQL('log_and_reg').query_db(query, data)
+        results = connectToMySQL('login').query_db(query, data)
 
         return len(results) == 0
 
     @classmethod 
     def get_user_by_id(cls, data):
         query = "SELECT * FROM users WHERE id = %(id)s;" 
-        results = connectToMySQL('log_and_reg').query_db(query, data)
+        results = connectToMySQL('login').query_db(query, data)
 
         if len(results) > 0:
             return cls(results[0])
@@ -45,7 +45,7 @@ class User:
     @classmethod
     def get_user_by_email(cls, data):
         query = "SELECT * FROM users WHERE email = %(email)s;"
-        results = connectToMySQL('log_and_reg').query_db(query, data)
+        results = connectToMySQL('login').query_db(query, data)
         if len(results) == 0:
             return False
         else:
